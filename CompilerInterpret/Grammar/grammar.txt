@@ -1,0 +1,50 @@
+program       = { block } ;
+
+function_declaration = type function_name "(" [ parameter_list ] ")" "{" block "return" expression ";" "}" ;
+function_name = "main" | variable ; 
+parameter_list = type variable { "," type variable } ;
+
+block       = { statement ";" }*;
+
+statement   = assignment 
+              | declaration 
+              | for_loop 
+              | if_statement 
+              | function_call;
+
+assignment  = variable "=" expression;
+
+for_loop    = "for" "(" assignment ";" condition ";" assignment ")" "{" block "}";
+
+if_statement = "if" "(" condition ")" "{" block "}" [ "else" "{" block "}" ];
+
+while_statement = "while" "(" expression ")" "{" { statement } "}" ;
+
+for_statement  = "for" "(" assignment expression ";" assignment ")" "{" { statement } "}" ;
+
+function_call = variable "(" [ expression { "," expression } ] ")";
+
+variable    = /[a-zA-Z_]\w*/;
+
+type          = "int" | "float" | "double" | "char" ;
+
+condition   = expression ("==" | "!=" | "<" | "<=" | ">" | ">=") expression;
+
+expression  = term { ("+" | "-") term };
+
+term        = factor { ("*" | "/") factor };
+
+factor      = number 
+              | variable 
+              | function_call 
+              | "(" expression ")";
+
+number      = /(\+|-)?\d+(\.\d+)?/;
+
+declaration       = type ( variable | array_declaration ) [ "=" expression | "{" expression { "," expression } "}" ] ;
+
+array_declaration = variable "[" int "]" { "[" int "]" } ;
+
+array_access      = variable "[" expression "]" { "[" expression "]" } ;
+
+type_conversion    = "(" type ")" factor ;

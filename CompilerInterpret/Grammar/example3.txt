@@ -1,0 +1,25 @@
+
+string name = "alice";
+float cash = 10.80;
+
+void greet (string name)
+{
+	println("hello");
+	println(name);
+
+}
+
+int main()
+{
+
+	println(name);
+
+	greet(name);
+	
+	println("restaurant sells some pizza");
+	println("pizza cost:");
+	println(cash);
+
+	
+	return 0;
+}
